@@ -1,0 +1,3 @@
+# Bike Sharing Data Analysis
+
+Panduan menjalankan proyek...
