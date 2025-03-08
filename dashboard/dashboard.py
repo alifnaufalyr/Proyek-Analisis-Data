@@ -4,50 +4,40 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Load dataset
-df = pd.read_csv('day.csv')  # Sesuaikan dengan dataset yang digunakan
+df = pd.read_csv("day.csv")
 
-# Title
-st.title("Bike Sharing Dashboard")
+# Streamlit App
+st.title("Dashboard Analisis Data Bike Sharing")
+st.markdown("---")
 
-# Sidebar filters
-season_map = {1: "Spring", 2: "Summer", 3: "Fall", 4: "Winter"}
-df['season'] = df['season'].map(season_map)
+# Sidebar for filtering
+st.sidebar.header("Filter Data")
+selected_season = st.sidebar.selectbox("Pilih Musim:", df["season"].unique())
+filtered_df = df[df["season"] == selected_season]
 
-day_type_map = {0: "Libur", 1: "Hari Kerja"}
-df['workingday'] = df['workingday'].map(day_type_map)
-
-selected_season = st.sidebar.selectbox("Pilih Musim:", df['season'].unique())
-selected_workingday = st.sidebar.selectbox("Pilih Hari Kerja:", df['workingday'].unique())
-
-# Filter data
-filtered_data = df[(df['season'] == selected_season) & (df['workingday'] == selected_workingday)]
-
-# Visualisasi jumlah peminjaman sepeda berdasarkan musim
+# Histogram distribusi jumlah peminjaman sepeda
 st.subheader("Distribusi Jumlah Peminjaman Sepeda")
-fig, ax = plt.subplots(figsize=(10, 5))
-sns.histplot(filtered_data['cnt'], bins=30, kde=True, color='blue', ax=ax)
-ax.set_xlabel("Jumlah Peminjaman Sepeda")
-ax.set_ylabel("Frekuensi")
-ax.set_title("Distribusi Jumlah Peminjaman Sepeda")
-st.pyplot(fig)
-
-# Visualisasi jumlah peminjaman berdasarkan musim dan hari kerja
-st.subheader("Tren Peminjaman Sepeda Berdasarkan Musim dan Hari Kerja")
 fig, ax = plt.subplots(figsize=(8, 4))
-sns.boxplot(x=filtered_data['season'], y=filtered_data['cnt'], palette='coolwarm', ax=ax)
-ax.set_xlabel("Musim")
-ax.set_ylabel("Jumlah Peminjaman Sepeda")
-ax.set_title("Perbandingan Jumlah Peminjaman Sepeda Berdasarkan Musim")
+sns.histplot(df["cnt"], bins=30, kde=True, color="blue", ax=ax)
+plt.xlabel("Jumlah Peminjaman Sepeda")
+plt.ylabel("Frekuensi")
 st.pyplot(fig)
 
+# Boxplot perbandingan peminjaman sepeda berdasarkan musim
+st.subheader("Perbandingan Jumlah Peminjaman Sepeda Berdasarkan Musim")
 fig, ax = plt.subplots(figsize=(8, 4))
-sns.boxplot(x=filtered_data['workingday'], y=filtered_data['cnt'], palette='viridis', ax=ax)
-ax.set_xlabel("Hari Kerja")
-ax.set_ylabel("Jumlah Peminjaman Sepeda")
-ax.set_title("Perbandingan Jumlah Peminjaman Sepeda pada Hari Kerja vs Hari Libur")
+sns.boxplot(x=df["season"], y=df["cnt"], palette="coolwarm", ax=ax)
+plt.xlabel("Musim")
+plt.ylabel("Jumlah Peminjaman Sepeda")
 st.pyplot(fig)
 
-# Kesimpulan
-st.subheader("Kesimpulan")
-st.write("- Jumlah peminjaman sepeda cenderung lebih tinggi di musim tertentu.")
-st.write("- Hari kerja memiliki pengaruh terhadap jumlah peminjaman sepeda.")
+# Boxplot perbandingan peminjaman sepeda pada hari kerja vs hari libur
+st.subheader("Perbandingan Peminjaman Sepeda: Hari Kerja vs Hari Libur")
+fig, ax = plt.subplots(figsize=(8, 4))
+sns.boxplot(x=df["workingday"], y=df["cnt"], palette="viridis", ax=ax)
+plt.xlabel("Hari Kerja (0: Libur, 1: Hari Kerja)")
+plt.ylabel("Jumlah Peminjaman Sepeda")
+st.pyplot(fig)
+
+st.markdown("---")
+st.write("Dashboard ini menampilkan analisis peminjaman sepeda berdasarkan berbagai faktor seperti musim dan hari kerja.")
