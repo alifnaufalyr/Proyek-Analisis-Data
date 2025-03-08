@@ -6,11 +6,10 @@ Proyek ini bertujuan untuk menganalisis tren peminjaman sepeda berdasarkan fakto
 ```
 submission/
 ├───dashboard/
-│   ├───main_data.csv
 │   └───dashboard.py
 ├───data/
 │   ├───day.csv
-├───notebook.ipynb
+├───Proyek_Analisis_Data (1).ipynb
 ├───README.md
 ├───requirements.txt
 └───url.txt
@@ -19,7 +18,7 @@ submission/
 ## Cara Menjalankan Proyek
 
 ### 1. Menjalankan Notebook
-Buka file `notebook.ipynb` di Jupyter Notebook atau Google Colab untuk melakukan eksplorasi dan analisis data.
+Buka file `Proyek_Analisis_Data (1).ipynb` di Jupyter Notebook atau Google Colab untuk melakukan eksplorasi dan analisis data.
 
 ### 2. Menjalankan Dashboard Streamlit
 Untuk menjalankan dashboard interaktif:
@@ -42,6 +41,3 @@ Untuk menjalankan dashboard interaktif:
 - **Python** (pandas, seaborn, matplotlib)
 - **Jupyter Notebook / Google Colab**
 - **Streamlit** (untuk visualisasi interaktif)
-
----
-Proyek ini dibuat sebagai bagian dari submission Dicoding. Jika ada pertanyaan, silakan hubungi melalui email yang tertera dalam notebook.
